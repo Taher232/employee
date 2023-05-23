@@ -2,6 +2,11 @@ package com.example.javaprojet;
 
 import com.example.javaprojet.*;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +49,7 @@ public class EmployeeDAO {
 
     public void updateEmployee(Employee employee) {
         try (
-             PreparedStatement statement = connection.prepareStatement("UPDATE employees SET name = ?, age = ? WHERE id = ?")) {
+             PreparedStatement statement = connection.prepareStatement("UPDATE employee SET name = ?, age = ? WHERE id = ?")) {
 
             statement.setString(1, employee.getName());
             statement.setInt(2, employee.getAge());
@@ -58,7 +63,7 @@ public class EmployeeDAO {
 
     public void createEmployee(Employee employee) {
         try (
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO employees (id, name, age) VALUES (?, ?, ?)")) {
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO employee (id, name, age) VALUES (?, ?, ?)")) {
 
             statement.setInt(1, employee.getId());
             statement.setString(2, employee.getName());
@@ -71,7 +76,7 @@ public class EmployeeDAO {
     }
     public void deleteEmployee(int id) {
         try (
-             PreparedStatement statement = connection.prepareStatement("DELETE FROM employees WHERE id = ?")) {
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM employee WHERE id = ?")) {
 
             statement.setInt(1, id);
 
@@ -86,5 +91,27 @@ public class EmployeeDAO {
         List<Employee> ee = e.getAllEmployees();
         System.out.println(ee.size());
         System.out.println(ee.get(0).getName());
+    }
+
+    public Employee checkLogin(String ID, String password) throws SQLException, Exception {
+        Employee result = null;
+        try {
+            Connection conn = DBUtil.getConnection();
+            if (conn != null) {
+
+                String sql = "SELECT id , name , age "
+                        + " FROM Employee WHERE userid = ? AND password = ?";
+                PreparedStatement stm = conn.prepareStatement(sql);
+                stm.setString(1, ID);
+                stm.setString(2, password);
+                ResultSet rs = stm.executeQuery();
+                if (rs.next()) {
+                    result = new Employee(rs.getInt("id"),
+                            rs.getString("name"), rs.getInt("age"));
+                }
+            }
+        } catch (Exception e) {
+        }
+        return result;
     }
 }

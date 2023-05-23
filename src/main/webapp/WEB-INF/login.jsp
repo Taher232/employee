@@ -5,52 +5,30 @@
   Time: 4:53 pm
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <style>
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        .login-form {
-            border: 1px solid #ccc;
-            padding: 20px;
-            border-radius: 5px;
-        }
-
-        .login-form label,
-        .login-form input[type="text"],
-        .login-form input[type="password"] {
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .login-form input[type="submit"] {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
 </head>
 <body>
-<div class="login-form">
-    <h1>Login</h1>
-    <form action="login" method="POST">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <input type="submit" value="Login">
+<div class="login-container">
+    <h2>Login</h2>
+    <form action="LoginController" method="post" onsubmit="return validateForm()">
+        <div class="form-group">
+            <label for="txtUserID">User ID</label>
+            <input type="text" class="form-control" id="txtUserID" name="txtUserID" required>
+        </div>
+        <div class="form-group">
+            <label for="txtPassword">Password</label>
+            <input type="password" class="form-control" id="txtPassword" name="txtPassword" required>
+        </div>
+        <div class="error-message" id="errorMessage"></div>
+        <button type="submit" class="btn btn-primary btn-block btn-login">Login</button>
     </form>
 </div>
 </body>

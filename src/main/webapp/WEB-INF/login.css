@@ -1,0 +1,37 @@
+body {
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.login-container {
+    width: 400px;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    height: 40px;
+}
+
+.btn-login {
+    margin-top: 20px;
+}
+
+.error-message {
+    color: #dc3545;
+    margin-top: 10px;
+}
